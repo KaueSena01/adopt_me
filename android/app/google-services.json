@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "485766474008",
+    "project_id": "adopt-me-b8306",
+    "storage_bucket": "adopt-me-b8306.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:485766474008:android:9afbb22a4ea88b9be6566d",
+        "android_client_info": {
+          "package_name": "caf.sdk.com.br.adopt_me"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "485766474008-uuabt1hgk0ssnk8i9t2efqbjtt5gq631.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBm7HyXcF9E33L12dkyOUo-D8PQLdizJGA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "485766474008-uuabt1hgk0ssnk8i9t2efqbjtt5gq631.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
