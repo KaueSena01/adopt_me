@@ -3,7 +3,6 @@ import 'package:adopt_me/core/constants/theme/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
 abstract class AppTheme {
-  //
   static const MaterialColor _primarySwatch = MaterialColor(0xFFE9913B, {
     50: Color(0xFFE9913B),
     100: Color(0xFFE9913B),

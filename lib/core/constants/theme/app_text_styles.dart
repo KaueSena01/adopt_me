@@ -27,12 +27,12 @@ abstract class AppTextStyles {
     ),
     titleMedium: TextStyle(
       fontSize: FontSize.fontSize24,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
       fontFamily: 'Inter',
     ),
     titleSmall: TextStyle(
       fontSize: FontSize.fontSize24,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
       fontFamily: 'Inter',
     ),
     // body
@@ -43,12 +43,12 @@ abstract class AppTextStyles {
     ),
     bodyMedium: TextStyle(
       fontSize: FontSize.fontSize22,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
       fontFamily: 'Inter',
     ),
     bodySmall: TextStyle(
       fontSize: FontSize.fontSize22,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
       fontFamily: 'Inter',
     ),
     // label
@@ -59,23 +59,23 @@ abstract class AppTextStyles {
     ),
     labelMedium: TextStyle(
       fontSize: FontSize.fontSize16,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
       fontFamily: 'Inter',
     ),
     labelSmall: TextStyle(
       fontSize: FontSize.fontSize16,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w400,
       fontFamily: 'Inter',
     ),
     // headline
     headlineLarge: TextStyle(
       fontSize: FontSize.fontSize14,
-      fontWeight: FontWeight.w500,
+      fontWeight: FontWeight.w700,
       fontFamily: 'Inter',
     ),
     headlineMedium: TextStyle(
       fontSize: FontSize.fontSize14,
-      fontWeight: FontWeight.w600,
+      fontWeight: FontWeight.w500,
       fontFamily: 'Inter',
     ),
     headlineSmall: TextStyle(
