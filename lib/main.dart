@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+
 import 'package:adopt_me/core/constants/theme/app_theme.dart';
 import 'package:adopt_me/firebase_options.dart';
-import 'package:adopt_me/layers/presentation/home.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/material.dart';
+import 'package:adopt_me/layers/presentation/pages/auth/login_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,7 +26,7 @@ class AdoptMe extends StatelessWidget {
       key: _globalKey,
       theme: AppTheme.themeData,
       title: 'Adopt Me',
-      home: Home(),
+      home: const LogInPage(),
     );
   }
 }

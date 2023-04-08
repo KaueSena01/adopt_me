@@ -4,6 +4,13 @@ abstract class AppSizes {
   static double size10 = 10.0;
   static double size15 = 15.0;
   static double size20 = 20.0;
+  static double size25 = 25.0;
+  static double size30 = 30.0;
+  static double size35 = 35.0;
+  static double size40 = 40.0;
+  static double size50 = 50.0;
+  static double size55 = 55.0;
+  static double size60 = 60.0;
 }
 
 abstract class BorderSize {
