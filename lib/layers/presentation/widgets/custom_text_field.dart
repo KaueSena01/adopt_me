@@ -80,7 +80,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           ),
           hintText: widget.hintText,
           hintStyle: AppTextStyles.textTheme.labelSmall!.apply(
-            color: widget.hintTextColor ?? AppColors.lighterColor,
+            color: widget.hintTextColor ?? AppColors.lightColor,
           ),
           suffixIcon: widget.isSecret
               ? IconButton(

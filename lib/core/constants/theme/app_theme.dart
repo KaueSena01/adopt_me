@@ -22,6 +22,7 @@ abstract class AppTheme {
   static final ThemeData themeData = ThemeData(
     primarySwatch: _primarySwatch,
     primaryColor: const Color(0xFFE9913B),
+    scaffoldBackgroundColor: AppColors.primaryColor,
     textTheme: AppTextStyles.textTheme,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

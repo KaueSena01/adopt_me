@@ -25,13 +25,11 @@ Widget background(BuildContext context, Widget child) {
           margin: const EdgeInsets.only(top: 0),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          // color: Colors.red,
           child: Stack(
             children: [
               const SizedBox(
                 height: 200,
                 width: 200,
-                // color: Colors.blue,
               ),
               Positioned(
                 left: 0,

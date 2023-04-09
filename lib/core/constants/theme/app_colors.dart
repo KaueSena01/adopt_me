@@ -7,6 +7,6 @@ abstract class AppColors {
   static Color whiteColor = const Color(0xFFFFFFFF);
 
   static Color defaultColor = const Color(0xFF636B78);
-  static Color lightColor = const Color(0xFFA1A6AD);
-  static Color lighterColor = const Color.fromARGB(255, 211, 208, 208);
+  static Color lightColor = const Color.fromARGB(255, 191, 191, 196);
+  static Color lighterColor = const Color.fromARGB(255, 225, 222, 222);
 }
