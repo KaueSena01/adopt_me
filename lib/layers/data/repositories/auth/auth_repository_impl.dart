@@ -1,28 +1,20 @@
 import 'package:adopt_me/layers/data/data_sources/auth/auth_datasource.dart';
+import 'package:adopt_me/layers/domain/entities/auth/auth_entity.dart';
 import 'package:adopt_me/layers/domain/repositories/auth/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthDataSource authDataSource;
 
-  AuthRepositoryImpl(this.authDataSource);
+  AuthRepositoryImpl({required this.authDataSource});
 
   @override
-  Future<void> googleAuth() async => await authDataSource.googleAuth();
+  Future<void> googleSignIn() async => await authDataSource.googleSignIn();
 
   @override
-  Future<void> emailAndPasswordAuth(
-    String email,
-    String password,
-  ) async =>
-      await authDataSource.emailAndPasswordAuth(email, password);
+  Future<void> signIn(AuthEntity authEntity) async =>
+      await authDataSource.signIn(authEntity);
 
   @override
-  Future<void> register(
-    String name,
-    String email,
-    String password,
-    String about,
-  ) async {
-    await authDataSource.register(name, email, password, about);
-  }
+  Future<void> register(AuthEntity authEntity) async =>
+      await authDataSource.register(authEntity);
 }

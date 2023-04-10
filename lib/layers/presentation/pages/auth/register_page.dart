@@ -1,10 +1,5 @@
-import 'package:adopt_me/layers/data/data_sources/remote/auth/auth_datasource_impl.dart';
-import 'package:adopt_me/layers/data/repositories/auth/auth_repository_impl.dart';
-import 'package:adopt_me/layers/domain/use_cases/auth/email_and_passowrd_sign_in_usecase_impl.dart';
-import 'package:adopt_me/layers/domain/use_cases/auth/google_sign_in_usecase_impl.dart';
-import 'package:adopt_me/layers/domain/use_cases/auth/register_usecase_impl.dart';
-import 'package:adopt_me/layers/presentation/controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 
 import 'package:adopt_me/core/constants/theme/app_sizes.dart';
 import 'package:adopt_me/layers/presentation/pages/auth/widgets/app_bar.dart';
@@ -13,6 +8,7 @@ import 'package:adopt_me/layers/presentation/widgets/custom_elevated_button.dart
 import 'package:adopt_me/layers/presentation/widgets/custom_text_field.dart';
 import 'package:adopt_me/core/constants/theme/app_colors.dart';
 import 'package:adopt_me/core/constants/theme/app_text_styles.dart';
+import 'package:adopt_me/layers/presentation/pages/auth/controllers/login_controller.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -23,6 +19,8 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final _formKey = GlobalKey<FormState>();
+
+  var authController = GetIt.I.get<AuthController>();
 
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
@@ -40,24 +38,6 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthController authController = AuthController(
-      GoogleSignInUseCaseImpl(
-        AuthRepositoryImpl(
-          AuthDataSourceImpl(),
-        ),
-      ),
-      EmailAndPasswordSignInUseCaseImpl(
-        AuthRepositoryImpl(
-          AuthDataSourceImpl(),
-        ),
-      ),
-      RegisterUseCaseImpl(
-        AuthRepositoryImpl(
-          AuthDataSourceImpl(),
-        ),
-      ),
-    );
-
     return Scaffold(
       body: SingleChildScrollView(
         child: background(

@@ -1,10 +1,11 @@
 import 'package:adopt_me/layers/data/data_sources/auth/auth_datasource.dart';
+import 'package:adopt_me/layers/domain/entities/auth/auth_entity.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthDataSourceImpl implements AuthDataSource {
   @override
-  Future<void> googleAuth() async {
+  Future<void> googleSignIn() async {
     final googleUser = await GoogleSignIn().signIn();
 
     final googleAuth = await googleUser?.authentication;
@@ -18,11 +19,11 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<void> emailAndPasswordAuth(String email, String password) async {
+  Future<void> signIn(AuthEntity authEntity) async {
     try {
       final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
-        email: email,
-        password: password,
+        email: authEntity.email,
+        password: authEntity.password,
       );
 
       print(user);
@@ -32,28 +33,11 @@ class AuthDataSourceImpl implements AuthDataSource {
   }
 
   @override
-  Future<void> register(
-    String name,
-    String email,
-    String password,
-    String about,
-  ) async {
+  Future<void> register(AuthEntity authEntity) async {
     final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-      email: email,
-      password: password,
+      email: authEntity.email,
+      password: authEntity.password,
     );
     print(user);
   }
 }
-
-//   @override
-//   Future<void> emailAndPasswordAuth({
-//     required String email,
-//     required String password,
-//   }) async {
-//     await FirebaseAuth.instance.signInWithEmailAndPassword(
-//       email: email,
-//       password: password,
-//     );
-//   }
-// }

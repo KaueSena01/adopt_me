@@ -1,14 +1,10 @@
-import 'package:adopt_me/layers/data/repositories/auth/auth_repository_impl.dart';
-import 'package:adopt_me/layers/domain/use_cases/auth/email_and_passowrd_sign_in_usecase_impl.dart';
-import 'package:adopt_me/layers/domain/use_cases/auth/register_usecase_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_it/get_it.dart';
 
+import 'package:adopt_me/layers/presentation/pages/auth/controllers/login_controller.dart';
 import 'package:adopt_me/core/constants/theme/app_sizes.dart';
 import 'package:adopt_me/core/constants/theme/app_text_styles.dart';
-import 'package:adopt_me/layers/data/data_sources/remote/auth/auth_datasource_impl.dart';
-import 'package:adopt_me/layers/domain/use_cases/auth/google_sign_in_usecase_impl.dart';
-import 'package:adopt_me/layers/presentation/controller.dart';
 import 'package:adopt_me/layers/presentation/pages/auth/widgets/background.dart';
 import 'package:adopt_me/layers/presentation/pages/auth/widgets/enter_with.dart';
 import 'package:adopt_me/layers/presentation/widgets/custom_elevated_button.dart';
@@ -29,6 +25,8 @@ class LogInPage extends StatefulWidget {
 class _LogInPageState extends State<LogInPage> {
   final _formKey = GlobalKey<FormState>();
 
+  var authController = GetIt.I.get<AuthController>();
+
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
@@ -41,24 +39,6 @@ class _LogInPageState extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthController authController = AuthController(
-      GoogleSignInUseCaseImpl(
-        AuthRepositoryImpl(
-          AuthDataSourceImpl(),
-        ),
-      ),
-      EmailAndPasswordSignInUseCaseImpl(
-        AuthRepositoryImpl(
-          AuthDataSourceImpl(),
-        ),
-      ),
-      RegisterUseCaseImpl(
-        AuthRepositoryImpl(
-          AuthDataSourceImpl(),
-        ),
-      ),
-    );
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -119,7 +99,7 @@ class _LogInPageState extends State<LogInPage> {
                               label: "Entrar",
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  authController.emailAndPassowrLogin(
+                                  authController.signIn(
                                     _emailController.text,
                                     _passwordController.text,
                                   );
@@ -135,7 +115,7 @@ class _LogInPageState extends State<LogInPage> {
                       label: "Entrar com o Google",
                       iconPath: "assets/icons/google.svg",
                       onPressed: () async =>
-                          await authController.signInWithGoogle(),
+                          await authController.googleSignIn(),
                     ),
                   ],
                 ),

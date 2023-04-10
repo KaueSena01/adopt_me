@@ -1,10 +1,7 @@
+import 'package:adopt_me/layers/domain/entities/auth/auth_entity.dart';
+
 abstract class AuthDataSource {
-  Future<void> googleAuth();
-  Future<void> emailAndPasswordAuth(String email, String password);
-  Future<void> register(
-    String name,
-    String email,
-    String password,
-    String about,
-  );
+  Future<void> googleSignIn();
+  Future<void> signIn(AuthEntity authEntity);
+  Future<void> register(AuthEntity authEntity);
 }
