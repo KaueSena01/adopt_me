@@ -4,9 +4,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthDataSourceImpl implements AuthDataSource {
+  final GoogleSignIn googleSignin;
+  final FirebaseAuth firebaseAuth;
+
+  AuthDataSourceImpl(this.firebaseAuth, this.googleSignin);
+
   @override
   Future<void> googleSignIn() async {
-    final googleUser = await GoogleSignIn().signIn();
+    final googleUser = await googleSignin.signIn();
 
     final googleAuth = await googleUser?.authentication;
 
@@ -15,13 +20,13 @@ class AuthDataSourceImpl implements AuthDataSource {
       idToken: googleAuth?.idToken,
     );
 
-    await FirebaseAuth.instance.signInWithCredential(credential);
+    await firebaseAuth.signInWithCredential(credential);
   }
 
   @override
   Future<void> signIn(AuthEntity authEntity) async {
     try {
-      final user = await FirebaseAuth.instance.signInWithEmailAndPassword(
+      final user = await firebaseAuth.signInWithEmailAndPassword(
         email: authEntity.email,
         password: authEntity.password,
       );
@@ -34,10 +39,9 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<void> register(AuthEntity authEntity) async {
-    final user = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    final user = await firebaseAuth.createUserWithEmailAndPassword(
       email: authEntity.email,
       password: authEntity.password,
     );
-    print(user);
   }
 }

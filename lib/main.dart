@@ -1,5 +1,6 @@
 import 'package:adopt_me/core/configs/inject.dart';
-import 'package:adopt_me/layers/presentation/pages/auth/register_page.dart';
+import 'package:adopt_me/core/constants/router/app_pages.dart';
+import 'package:adopt_me/core/constants/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -29,8 +30,11 @@ class AdoptMe extends StatelessWidget {
     return GetMaterialApp(
       key: _globalKey,
       theme: AppTheme.themeData,
+      themeMode: ThemeMode.system,
       title: 'Adopt Me',
-      home: const RegisterPage(),
+      debugShowCheckedModeBanner: false,
+      getPages: AppPages.appPages,
+      initialRoute: AppRoutes.loginRoute,
     );
   }
 }

@@ -8,7 +8,7 @@ import 'package:adopt_me/layers/presentation/widgets/custom_elevated_button.dart
 import 'package:adopt_me/layers/presentation/widgets/custom_text_field.dart';
 import 'package:adopt_me/core/constants/theme/app_colors.dart';
 import 'package:adopt_me/core/constants/theme/app_text_styles.dart';
-import 'package:adopt_me/layers/presentation/pages/auth/controllers/login_controller.dart';
+import 'package:adopt_me/layers/presentation/pages/auth/controllers/auth_controller.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});

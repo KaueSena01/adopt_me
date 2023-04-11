@@ -1,8 +1,8 @@
+import 'package:adopt_me/layers/presentation/pages/auth/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 
-import 'package:adopt_me/layers/presentation/pages/auth/controllers/login_controller.dart';
 import 'package:adopt_me/core/constants/theme/app_sizes.dart';
 import 'package:adopt_me/core/constants/theme/app_text_styles.dart';
 import 'package:adopt_me/layers/presentation/pages/auth/widgets/background.dart';
