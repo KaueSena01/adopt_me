@@ -49,10 +49,8 @@ class AuthController {
       UserEntity(
         aboutMe: about,
         email: email,
-        location: 'Crateús - CE',
         name: name,
         password: password,
-        profileUrl: 'url',
         uid: uid,
       ),
     );
