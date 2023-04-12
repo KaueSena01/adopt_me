@@ -11,10 +11,11 @@ class UserDataSourceImpl implements UserDataSource {
   @override
   Future<void> createUser(UserEntity userEntity) async {
     final userCollection = firestore.collection("users");
-    const uid = "";
+    final uid = userEntity.uid;
+
     userCollection.doc(uid).get().then((user) {
       final newUser = UserDTO(
-        uid: uid,
+        uid: userEntity.uid,
         name: userEntity.name,
         email: userEntity.email,
         aboutMe: userEntity.aboutMe,

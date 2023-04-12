@@ -4,4 +4,5 @@ abstract class AuthDataSource {
   Future<void> googleSignIn();
   Future<void> signIn(AuthEntity authEntity);
   Future<void> register(AuthEntity authEntity);
+  Future<String> getCurrentUId();
 }

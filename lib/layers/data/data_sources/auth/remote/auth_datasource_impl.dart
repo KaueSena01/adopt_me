@@ -44,4 +44,7 @@ class AuthDataSourceImpl implements AuthDataSource {
       password: authEntity.password,
     );
   }
+
+  @override
+  Future<String> getCurrentUId() async => firebaseAuth.currentUser!.uid;
 }

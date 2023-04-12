@@ -17,4 +17,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<void> register(AuthEntity authEntity) async =>
       await authDataSource.register(authEntity);
+
+  @override
+  Future<String> getCurrentUId() async => await authDataSource.getCurrentUId();
 }
