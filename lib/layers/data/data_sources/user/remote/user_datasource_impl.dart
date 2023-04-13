@@ -32,7 +32,7 @@ class UserDataSourceImpl implements UserDataSource {
         return;
       }
     }).catchError((error) {
-      print(error);
+      print("Erro: -------->$error");
     });
   }
 }

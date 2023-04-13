@@ -1,16 +1,22 @@
 import 'package:adopt_me/layers/data/data_sources/auth/auth_datasource.dart';
 import 'package:adopt_me/layers/domain/entities/auth/auth_entity.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthDataSourceImpl implements AuthDataSource {
   final GoogleSignIn googleSignin;
   final FirebaseAuth firebaseAuth;
+  final FirebaseFirestore fireStore;
 
-  AuthDataSourceImpl(this.firebaseAuth, this.googleSignin);
+  AuthDataSourceImpl(
+    this.firebaseAuth,
+    this.googleSignin,
+    this.fireStore,
+  );
 
   @override
-  Future<void> googleSignIn() async {
+  Future<AuthEntity> googleSignIn() async {
     final googleUser = await googleSignin.signIn();
 
     final googleAuth = await googleUser?.authentication;
@@ -20,7 +26,14 @@ class AuthDataSourceImpl implements AuthDataSource {
       idToken: googleAuth?.idToken,
     );
 
-    await firebaseAuth.signInWithCredential(credential);
+    final userAuth = (await firebaseAuth.signInWithCredential(credential)).user;
+
+    return AuthEntity(
+      uid: userAuth!.uid,
+      name: userAuth.displayName!,
+      email: userAuth.email!,
+      profileUrl: userAuth.photoURL!,
+    );
   }
 
   @override

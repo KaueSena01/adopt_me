@@ -32,7 +32,7 @@ class Inject {
 
     // DataSources
     getIt.registerLazySingleton<AuthDataSource>(
-      () => AuthDataSourceImpl(getIt(), getIt()),
+      () => AuthDataSourceImpl(getIt(), getIt(), getIt()),
     );
     getIt.registerLazySingleton<UserDataSource>(
       () => UserDataSourceImpl(getIt()),
