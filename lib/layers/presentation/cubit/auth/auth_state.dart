@@ -9,6 +9,21 @@ class AuthInitial extends AuthState {
   List<Object?> get props => [];
 }
 
+class AuthLoading extends AuthState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthSuccess extends AuthState {
+  @override
+  List<Object?> get props => [];
+}
+
+class AuthFailure extends AuthState {
+  @override
+  List<Object?> get props => [];
+}
+
 class Authenticated extends AuthState {
   final String uid;
 

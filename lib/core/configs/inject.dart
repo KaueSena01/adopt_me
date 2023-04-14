@@ -5,6 +5,7 @@ import 'package:adopt_me/layers/data/repositories/user/user_repository_impl.dart
 import 'package:adopt_me/layers/domain/repositories/user/user_repository.dart';
 import 'package:adopt_me/layers/domain/use_cases/auth/get_current_uid_usecase.dart';
 import 'package:adopt_me/layers/domain/use_cases/user/create_user_usecase.dart';
+import 'package:adopt_me/layers/presentation/cubit/auth/auth_cubit.dart';
 import 'package:adopt_me/layers/presentation/pages/user/controllers/user_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
@@ -19,58 +20,60 @@ import 'package:adopt_me/layers/domain/use_cases/auth/sign_in_usecase.dart';
 import 'package:adopt_me/layers/presentation/pages/auth/controllers/auth_controller.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class Inject {
-  static void init() {
-    GetIt getIt = GetIt.instance;
-    FirebaseFirestore fireStore = FirebaseFirestore.instance;
-    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-    GoogleSignIn googleSignIn = GoogleSignIn();
+GetIt getIt = GetIt.instance;
 
-    getIt.registerLazySingleton(() => fireStore);
-    getIt.registerLazySingleton(() => firebaseAuth);
-    getIt.registerLazySingleton(() => googleSignIn);
+Future<void> init() async {
+  FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  GoogleSignIn googleSignIn = GoogleSignIn();
 
-    // DataSources
-    getIt.registerLazySingleton<AuthDataSource>(
-      () => AuthDataSourceImpl(getIt(), getIt(), getIt()),
-    );
-    getIt.registerLazySingleton<UserDataSource>(
-      () => UserDataSourceImpl(getIt()),
-    );
+  getIt.registerLazySingleton(() => fireStore);
+  getIt.registerLazySingleton(() => firebaseAuth);
+  getIt.registerLazySingleton(() => googleSignIn);
 
-    // Repositories
-    getIt.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(authDataSource: getIt()),
-    );
-    getIt.registerLazySingleton<UserRepository>(
-      () => UserRepositoryImpl(userDataSource: getIt()),
-    );
+  // Cubit
+  getIt.registerFactory<AuthCubit>(() => AuthCubit(getIt()));
 
-    // UseCases
-    // Auth
-    getIt.registerLazySingleton<GoogleSignInUseCase>(
-      () => GoogleSignInUseCase(authRepository: getIt()),
-    );
-    getIt.registerLazySingleton<SingInUseCase>(
-      () => SingInUseCase(authRepository: getIt()),
-    );
-    getIt.registerLazySingleton<RegisterUseCase>(
-      () => RegisterUseCase(authRepository: getIt()),
-    );
-    getIt.registerLazySingleton<GetCurrentUIDUseCase>(
-      () => GetCurrentUIDUseCase(authRepository: getIt()),
-    );
-    // User
-    getIt.registerLazySingleton<CreateUserUseCase>(
-      () => CreateUserUseCase(userRepository: getIt()),
-    );
+  // DataSources
+  getIt.registerLazySingleton<AuthDataSource>(
+    () => AuthDataSourceImpl(getIt(), getIt(), getIt()),
+  );
+  getIt.registerLazySingleton<UserDataSource>(
+    () => UserDataSourceImpl(getIt()),
+  );
 
-    // Controller
-    getIt.registerFactory<AuthController>(
-      () => AuthController(getIt(), getIt(), getIt(), getIt()),
-    );
-    getIt.registerLazySingleton<UserController>(
-      () => UserController(getIt()),
-    );
-  }
+  // Repositories
+  getIt.registerLazySingleton<AuthRepository>(
+    () => AuthRepositoryImpl(authDataSource: getIt()),
+  );
+  getIt.registerLazySingleton<UserRepository>(
+    () => UserRepositoryImpl(userDataSource: getIt()),
+  );
+
+  // UseCases
+  // Auth
+  getIt.registerLazySingleton<GoogleSignInUseCase>(
+    () => GoogleSignInUseCase(authRepository: getIt()),
+  );
+  getIt.registerLazySingleton<SingInUseCase>(
+    () => SingInUseCase(authRepository: getIt()),
+  );
+  getIt.registerLazySingleton<RegisterUseCase>(
+    () => RegisterUseCase(authRepository: getIt()),
+  );
+  getIt.registerLazySingleton<GetCurrentUIDUseCase>(
+    () => GetCurrentUIDUseCase(authRepository: getIt()),
+  );
+  // User
+  getIt.registerLazySingleton<CreateUserUseCase>(
+    () => CreateUserUseCase(userRepository: getIt()),
+  );
+
+  // Controller
+  getIt.registerFactory<AuthController>(
+    () => AuthController(getIt(), getIt(), getIt(), getIt()),
+  );
+  getIt.registerLazySingleton<UserController>(
+    () => UserController(getIt()),
+  );
 }

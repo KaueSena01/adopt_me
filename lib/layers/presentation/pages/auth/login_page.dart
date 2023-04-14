@@ -1,5 +1,8 @@
+import 'package:adopt_me/layers/presentation/cubit/auth/auth_cubit.dart';
+import 'package:adopt_me/layers/presentation/cubit/auth/auth_state.dart';
 import 'package:adopt_me/layers/presentation/pages/auth/controllers/auth_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 
@@ -41,87 +44,102 @@ class _LogInPageState extends State<LogInPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: background(
-            context,
-            Padding(
-              padding: EdgeInsets.all(AppSizes.size15),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  children: [
-                    appName(context),
-                    CustomTextField(
-                      labelText: "E-mail",
-                      hintText: "Digite seu e-mail",
-                      margin: EdgeInsets.only(
-                        top: AppSizes.size20,
-                        bottom: AppSizes.size15,
-                      ),
-                      controller: _emailController,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        CustomTextField(
-                          labelText: "Senha",
-                          hintText: "Digite sua senha",
-                          isSecret: true,
-                          margin: EdgeInsets.only(
-                            top: AppSizes.size20,
-                            bottom: AppSizes.size05,
-                          ),
-                          controller: _passwordController,
-                        ),
-                        Text(
-                          'Esqueceu a senha',
-                          style: AppTextStyles.textTheme.headlineSmall!.apply(
-                            color: AppColors.primaryColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(top: AppSizes.size50),
-                      child: Row(
+        child: BlocConsumer<AuthCubit, AuthState>(
+          listener: (context, authState) {
+            if (authState is AuthFailure) {}
+          },
+          builder: (context, authState) {
+            if (authState is AuthSuccess) {
+              return const Scaffold();
+            } else {
+              return SingleChildScrollView(
+                child: background(
+                  context,
+                  Padding(
+                    padding: EdgeInsets.all(AppSizes.size15),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
                         children: [
-                          Expanded(
-                            flex: 1,
-                            child: CustomOutlinedButton(
-                              label: "Criar conta",
-                              onPressed: () => Get.to(const RegisterPage()),
+                          appName(context),
+                          CustomTextField(
+                            labelText: "E-mail",
+                            hintText: "Digite seu e-mail",
+                            margin: EdgeInsets.only(
+                              top: AppSizes.size20,
+                              bottom: AppSizes.size15,
+                            ),
+                            controller: _emailController,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              CustomTextField(
+                                labelText: "Senha",
+                                hintText: "Digite sua senha",
+                                isSecret: true,
+                                margin: EdgeInsets.only(
+                                  top: AppSizes.size20,
+                                  bottom: AppSizes.size05,
+                                ),
+                                controller: _passwordController,
+                              ),
+                              Text(
+                                'Esqueceu a senha',
+                                style: AppTextStyles.textTheme.headlineSmall!
+                                    .apply(
+                                  color: AppColors.primaryColor,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Container(
+                            margin: EdgeInsets.only(top: AppSizes.size50),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: CustomOutlinedButton(
+                                    label: "Criar conta",
+                                    onPressed: () =>
+                                        Get.to(const RegisterPage()),
+                                  ),
+                                ),
+                                CustomSpace(width: AppSizes.size10),
+                                Expanded(
+                                  flex: 2,
+                                  child: CustomElevatedButton(
+                                    label: "Entrar",
+                                    onPressed: () {
+                                      if (_formKey.currentState!.validate()) {
+                                        authController.signIn(
+                                          _emailController.text,
+                                          _passwordController.text,
+                                        );
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                          CustomSpace(width: AppSizes.size10),
-                          Expanded(
-                            flex: 2,
-                            child: CustomElevatedButton(
-                              label: "Entrar",
-                              onPressed: () {
-                                if (_formKey.currentState!.validate()) {
-                                  authController.signIn(
-                                    _emailController.text,
-                                    _passwordController.text,
-                                  );
-                                }
-                              },
-                            ),
+                          enterWith(context),
+                          CustomOutlinedButton(
+                            label: "Entrar com o Google",
+                            iconPath: "assets/icons/google.svg",
+                            onPressed: () async =>
+                                await BlocProvider.of<AuthCubit>(context)
+                                    .googleSignIn(),
+                            // await authController.googleSignIn(),
                           ),
                         ],
                       ),
                     ),
-                    enterWith(context),
-                    CustomOutlinedButton(
-                      label: "Entrar com o Google",
-                      iconPath: "assets/icons/google.svg",
-                      onPressed: () async =>
-                          await authController.googleSignIn(),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
-          ),
+              );
+            }
+          },
         ),
       ),
     );
