@@ -32,7 +32,7 @@ Future<void> init() async {
   getIt.registerLazySingleton(() => googleSignIn);
 
   // Cubit
-  getIt.registerFactory<AuthCubit>(() => AuthCubit(getIt()));
+  getIt.registerFactory<AuthCubit>(() => AuthCubit(getIt(), getIt()));
 
   // DataSources
   getIt.registerLazySingleton<AuthDataSource>(

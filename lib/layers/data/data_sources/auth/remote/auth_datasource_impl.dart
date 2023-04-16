@@ -17,45 +17,68 @@ class AuthDataSourceImpl implements AuthDataSource {
 
   @override
   Future<AuthEntity> googleSignIn() async {
-    final googleUser = await googleSignin.signIn();
+    try {
+      final googleUser = await googleSignin.signIn();
 
-    final googleAuth = await googleUser?.authentication;
+      final googleAuth = await googleUser?.authentication;
 
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
+      final credential = GoogleAuthProvider.credential(
+        accessToken: googleAuth?.accessToken,
+        idToken: googleAuth?.idToken,
+      );
 
-    final userAuth = (await firebaseAuth.signInWithCredential(credential)).user;
+      final userAuth =
+          (await firebaseAuth.signInWithCredential(credential)).user;
 
-    return AuthEntity(
-      uid: userAuth!.uid,
-      name: userAuth.displayName!,
-      email: userAuth.email!,
-      profileUrl: userAuth.photoURL!,
-    );
+      return AuthEntity(
+        uid: userAuth!.uid,
+        name: userAuth.displayName!,
+        email: userAuth.email!,
+        profileUrl: userAuth.photoURL!,
+      );
+    } on FirebaseAuthException catch (_) {
+      throw Exception('Erro ao autenticar com o Google');
+    }
   }
 
   @override
   Future<void> signIn(AuthEntity authEntity) async {
     try {
-      final user = await firebaseAuth.signInWithEmailAndPassword(
+      await firebaseAuth.signInWithEmailAndPassword(
         email: authEntity.email,
         password: authEntity.password,
       );
+    } on FirebaseAuthException catch (_) {
+      var signInError = "Ocorreu um erro, tente novamente mais tarde!";
 
-      print(user);
-    } catch (e) {
-      print(e);
+      if (_.code == 'user-not-found') {
+        signInError = "Usuário não encontrado";
+      } else if (_.code == 'wrong-password') {
+        signInError = "Senha incorreta";
+      }
+
+      throw Exception(signInError);
     }
   }
 
   @override
   Future<void> register(AuthEntity authEntity) async {
-    final user = await firebaseAuth.createUserWithEmailAndPassword(
-      email: authEntity.email,
-      password: authEntity.password,
-    );
+    try {
+      firebaseAuth.createUserWithEmailAndPassword(
+        email: authEntity.email,
+        password: authEntity.password,
+      );
+    } on FirebaseAuthException catch (_) {
+      var signInError = "Ocorreu um erro, tente novamente mais tarde!";
+
+      if (_.code == 'weak-password') {
+        signInError = "A senha fornecida é muito fraca";
+      } else if (_.code == 'email-already-in-use') {
+        signInError = "Uma conta com este e-mail já existe";
+      }
+
+      throw Exception(signInError);
+    }
   }
 
   @override

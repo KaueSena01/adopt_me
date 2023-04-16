@@ -2,6 +2,7 @@ import 'package:adopt_me/core/configs/inject.dart' as inject;
 import 'package:adopt_me/core/constants/router/app_pages.dart';
 import 'package:adopt_me/core/constants/router/app_routes.dart';
 import 'package:adopt_me/layers/presentation/cubit/auth/auth_cubit.dart';
+import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -37,6 +38,7 @@ class AdoptMe extends StatelessWidget {
       ],
       child: GetMaterialApp(
         key: _globalKey,
+        builder: Asuka.builder,
         theme: AppTheme.themeData,
         themeMode: ThemeMode.system,
         title: 'Adopt Me',

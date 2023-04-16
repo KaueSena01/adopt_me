@@ -1,11 +1,13 @@
-import 'package:adopt_me/layers/presentation/cubit/auth/auth_cubit.dart';
-import 'package:adopt_me/layers/presentation/cubit/auth/auth_state.dart';
-import 'package:adopt_me/layers/presentation/pages/auth/controllers/auth_controller.dart';
+import 'package:adopt_me/core/constants/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:get_it/get_it.dart';
 
+import 'package:adopt_me/layers/presentation/cubit/auth/auth_cubit.dart';
+import 'package:adopt_me/layers/presentation/cubit/auth/auth_state.dart';
+import 'package:adopt_me/layers/presentation/pages/auth/controllers/auth_controller.dart';
+import 'package:adopt_me/layers/presentation/pages/auth/handlers/auth_state_handler.dart';
 import 'package:adopt_me/core/constants/theme/app_sizes.dart';
 import 'package:adopt_me/core/constants/theme/app_text_styles.dart';
 import 'package:adopt_me/layers/presentation/pages/auth/widgets/background.dart';
@@ -16,7 +18,6 @@ import 'package:adopt_me/layers/presentation/widgets/custom_space.dart';
 import 'package:adopt_me/layers/presentation/widgets/custom_text_field.dart';
 import 'package:adopt_me/core/constants/theme/app_colors.dart';
 import 'package:adopt_me/layers/presentation/pages/auth/widgets/app_name.dart';
-import 'package:adopt_me/layers/presentation/pages/auth/register_page.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
@@ -28,7 +29,9 @@ class LogInPage extends StatefulWidget {
 class _LogInPageState extends State<LogInPage> {
   final _formKey = GlobalKey<FormState>();
 
-  var authController = GetIt.I.get<AuthController>();
+  final blocProvider = BlocProvider.of<AuthCubit>;
+
+  final authController = GetIt.I.get<AuthController>();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -45,100 +48,96 @@ class _LogInPageState extends State<LogInPage> {
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<AuthCubit, AuthState>(
-          listener: (context, authState) {
-            if (authState is AuthFailure) {}
-          },
+          listener: (context, authState) => AuthStateHandler.handleAuthState(
+            context,
+            authState,
+          ),
           builder: (context, authState) {
-            if (authState is AuthSuccess) {
-              return const Scaffold();
-            } else {
-              return SingleChildScrollView(
-                child: background(
-                  context,
-                  Padding(
-                    padding: EdgeInsets.all(AppSizes.size15),
-                    child: Form(
-                      key: _formKey,
-                      child: Column(
-                        children: [
-                          appName(context),
-                          CustomTextField(
-                            labelText: "E-mail",
-                            hintText: "Digite seu e-mail",
-                            margin: EdgeInsets.only(
-                              top: AppSizes.size20,
-                              bottom: AppSizes.size15,
-                            ),
-                            controller: _emailController,
+            return SingleChildScrollView(
+              child: background(
+                context,
+                Padding(
+                  padding: EdgeInsets.all(AppSizes.size15),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        appName(context),
+                        CustomTextField(
+                          labelText: "E-mail",
+                          hintText: "Digite seu e-mail",
+                          margin: EdgeInsets.only(
+                            top: AppSizes.size20,
+                            bottom: AppSizes.size15,
                           ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              CustomTextField(
-                                labelText: "Senha",
-                                hintText: "Digite sua senha",
-                                isSecret: true,
-                                margin: EdgeInsets.only(
-                                  top: AppSizes.size20,
-                                  bottom: AppSizes.size05,
-                                ),
-                                controller: _passwordController,
+                          controller: _emailController,
+                        ),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            CustomTextField(
+                              labelText: "Senha",
+                              hintText: "Digite sua senha",
+                              isSecret: true,
+                              margin: EdgeInsets.only(
+                                top: AppSizes.size20,
+                                bottom: AppSizes.size05,
                               ),
-                              Text(
-                                'Esqueceu a senha',
-                                style: AppTextStyles.textTheme.headlineSmall!
-                                    .apply(
-                                  color: AppColors.primaryColor,
+                              controller: _passwordController,
+                            ),
+                            Text(
+                              'Esqueceu a senha',
+                              style:
+                                  AppTextStyles.textTheme.headlineSmall!.apply(
+                                color: AppColors.primaryColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(top: AppSizes.size50),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                flex: 1,
+                                child: CustomOutlinedButton(
+                                  label: "Criar conta",
+                                  onPressed: () =>
+                                      Get.toNamed(AppRoutes.registerRoute),
+                                ),
+                              ),
+                              CustomSpace(width: AppSizes.size10),
+                              Expanded(
+                                flex: 2,
+                                child: CustomElevatedButton(
+                                  label: "Entrar",
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      await blocProvider(context).signIn(
+                                        _emailController.text,
+                                        _passwordController.text,
+                                      );
+                                    }
+                                  },
                                 ),
                               ),
                             ],
                           ),
-                          Container(
-                            margin: EdgeInsets.only(top: AppSizes.size50),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                  flex: 1,
-                                  child: CustomOutlinedButton(
-                                    label: "Criar conta",
-                                    onPressed: () =>
-                                        Get.to(const RegisterPage()),
-                                  ),
-                                ),
-                                CustomSpace(width: AppSizes.size10),
-                                Expanded(
-                                  flex: 2,
-                                  child: CustomElevatedButton(
-                                    label: "Entrar",
-                                    onPressed: () {
-                                      if (_formKey.currentState!.validate()) {
-                                        authController.signIn(
-                                          _emailController.text,
-                                          _passwordController.text,
-                                        );
-                                      }
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          enterWith(context),
-                          CustomOutlinedButton(
-                            label: "Entrar com o Google",
-                            iconPath: "assets/icons/google.svg",
-                            onPressed: () async =>
-                                await BlocProvider.of<AuthCubit>(context)
-                                    .googleSignIn(),
-                            // await authController.googleSignIn(),
-                          ),
-                        ],
-                      ),
+                        ),
+                        enterWith(context),
+                        CustomOutlinedButton(
+                          label: "Entrar com o Google",
+                          iconPath: "assets/icons/google.svg",
+                          onPressed: () async =>
+                              await blocProvider(context).googleSignIn(),
+                          // await authController.googleSignIn(),
+                        ),
+                      ],
                     ),
                   ),
                 ),
-              );
-            }
+              ),
+            );
           },
         ),
       ),
