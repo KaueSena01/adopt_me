@@ -36,7 +36,7 @@ class AuthDataSourceImpl implements AuthDataSource {
         email: userAuth.email!,
         profileUrl: userAuth.photoURL!,
       );
-    } on FirebaseAuthException catch (_) {
+    } catch (_) {
       throw Exception('Erro ao autenticar com o Google');
     }
   }
@@ -64,7 +64,17 @@ class AuthDataSourceImpl implements AuthDataSource {
   @override
   Future<void> register(AuthEntity authEntity) async {
     try {
-      firebaseAuth.createUserWithEmailAndPassword(
+      final userCollection = fireStore.collection("users");
+
+      final querySnapshot = await userCollection
+          .where("email", isEqualTo: authEntity.email)
+          .get();
+
+      if (querySnapshot.docs.isNotEmpty) {
+        throw "Exception: Já existe uma conta com este e-mail";
+      }
+
+      await firebaseAuth.createUserWithEmailAndPassword(
         email: authEntity.email,
         password: authEntity.password,
       );
@@ -74,7 +84,7 @@ class AuthDataSourceImpl implements AuthDataSource {
       if (_.code == 'weak-password') {
         signInError = "A senha fornecida é muito fraca";
       } else if (_.code == 'email-already-in-use') {
-        signInError = "Uma conta com este e-mail já existe";
+        signInError = "Já existe uma conta com este e-mail";
       }
 
       throw Exception(signInError);

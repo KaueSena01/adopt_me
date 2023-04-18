@@ -6,7 +6,7 @@ import 'package:adopt_me/layers/domain/repositories/user/user_repository.dart';
 import 'package:adopt_me/layers/domain/use_cases/auth/get_current_uid_usecase.dart';
 import 'package:adopt_me/layers/domain/use_cases/user/create_user_usecase.dart';
 import 'package:adopt_me/layers/presentation/cubit/auth/auth_cubit.dart';
-import 'package:adopt_me/layers/presentation/pages/user/controllers/user_controller.dart';
+import 'package:adopt_me/layers/presentation/cubit/user/user_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -17,7 +17,6 @@ import 'package:adopt_me/layers/domain/repositories/auth/auth_repository.dart';
 import 'package:adopt_me/layers/domain/use_cases/auth/google_sign_in_usecase.dart';
 import 'package:adopt_me/layers/domain/use_cases/auth/register_usecase.dart';
 import 'package:adopt_me/layers/domain/use_cases/auth/sign_in_usecase.dart';
-import 'package:adopt_me/layers/presentation/pages/auth/controllers/auth_controller.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 GetIt getIt = GetIt.instance;
@@ -32,7 +31,9 @@ Future<void> init() async {
   getIt.registerLazySingleton(() => googleSignIn);
 
   // Cubit
-  getIt.registerFactory<AuthCubit>(() => AuthCubit(getIt(), getIt()));
+  getIt.registerFactory<AuthCubit>(
+      () => AuthCubit(getIt(), getIt(), getIt(), getIt()));
+  getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
 
   // DataSources
   getIt.registerLazySingleton<AuthDataSource>(
@@ -67,13 +68,5 @@ Future<void> init() async {
   // User
   getIt.registerLazySingleton<CreateUserUseCase>(
     () => CreateUserUseCase(userRepository: getIt()),
-  );
-
-  // Controller
-  getIt.registerFactory<AuthController>(
-    () => AuthController(getIt(), getIt(), getIt(), getIt()),
-  );
-  getIt.registerLazySingleton<UserController>(
-    () => UserController(getIt()),
   );
 }

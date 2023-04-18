@@ -1,23 +1,21 @@
-import 'package:adopt_me/core/constants/router/app_routes.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
-import 'package:get_it/get_it.dart';
 
+import 'package:adopt_me/core/constants/theme/app_sizes.dart';
+import 'package:adopt_me/core/constants/theme/app_colors.dart';
+import 'package:adopt_me/core/constants/router/app_routes.dart';
+import 'package:adopt_me/core/constants/theme/app_text_styles.dart';
+import 'package:adopt_me/layers/presentation/widgets/custom_space.dart';
 import 'package:adopt_me/layers/presentation/cubit/auth/auth_cubit.dart';
 import 'package:adopt_me/layers/presentation/cubit/auth/auth_state.dart';
-import 'package:adopt_me/layers/presentation/pages/auth/controllers/auth_controller.dart';
-import 'package:adopt_me/layers/presentation/pages/auth/handlers/auth_state_handler.dart';
-import 'package:adopt_me/core/constants/theme/app_sizes.dart';
-import 'package:adopt_me/core/constants/theme/app_text_styles.dart';
+import 'package:adopt_me/layers/presentation/widgets/custom_text_field.dart';
+import 'package:adopt_me/layers/presentation/pages/auth/widgets/app_name.dart';
 import 'package:adopt_me/layers/presentation/pages/auth/widgets/background.dart';
 import 'package:adopt_me/layers/presentation/pages/auth/widgets/enter_with.dart';
 import 'package:adopt_me/layers/presentation/widgets/custom_elevated_button.dart';
 import 'package:adopt_me/layers/presentation/widgets/custom_outlined_button.dart';
-import 'package:adopt_me/layers/presentation/widgets/custom_space.dart';
-import 'package:adopt_me/layers/presentation/widgets/custom_text_field.dart';
-import 'package:adopt_me/core/constants/theme/app_colors.dart';
-import 'package:adopt_me/layers/presentation/pages/auth/widgets/app_name.dart';
+import 'package:adopt_me/layers/presentation/pages/auth/handlers/auth_state_handler.dart';
 
 class LogInPage extends StatefulWidget {
   const LogInPage({super.key});
@@ -30,8 +28,6 @@ class _LogInPageState extends State<LogInPage> {
   final _formKey = GlobalKey<FormState>();
 
   final blocProvider = BlocProvider.of<AuthCubit>;
-
-  final authController = GetIt.I.get<AuthController>();
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -112,6 +108,8 @@ class _LogInPageState extends State<LogInPage> {
                                 child: CustomElevatedButton(
                                   label: "Entrar",
                                   onPressed: () async {
+                                    FocusScope.of(context).unfocus();
+
                                     if (_formKey.currentState!.validate()) {
                                       await blocProvider(context).signIn(
                                         _emailController.text,

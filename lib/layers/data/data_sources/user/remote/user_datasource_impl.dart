@@ -22,17 +22,6 @@ class UserDataSourceImpl implements UserDataSource {
         location: userEntity.location,
         profileUrl: userEntity.profileUrl,
       ).toDocument();
-
-      if (!user.exists) {
-        userCollection.doc(uid).set(newUser);
-        return;
-      } else {
-        userCollection.doc(uid).update(newUser);
-        print("user already exist");
-        return;
-      }
-    }).catchError((error) {
-      print("Erro: -------->$error");
-    });
+    }).catchError((error) {});
   }
 }
