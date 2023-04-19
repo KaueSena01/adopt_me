@@ -72,25 +72,24 @@ abstract class AppTheme {
           width: BorderSize.borderSizeSmall,
         ),
       ),
-      errorBorder: const UnderlineInputBorder(
+      errorBorder: UnderlineInputBorder(
         borderSide: BorderSide(
-          // color: labelColor,
-          width: 2,
+          color: AppColors.whiteColor,
+          width: BorderSize.borderSizeSmall,
         ),
       ),
-      errorStyle: const TextStyle(
-        fontSize: 12,
-        fontWeight: FontWeight.w300,
-        fontFamily: 'Poppins',
-        // color: labelColor,
+      errorStyle: AppTextStyles.textTheme.headlineSmall!.apply(
+        color: Colors.red,
       ),
+      // TextStyle(
+      //   fontSize: 12,
+      //   fontWeight: FontWeight.w300,
+      //   fontFamily: 'Poppins',
+      //   color: AppColors.whiteColor,
+      // ),
     ),
     colorScheme: ColorScheme.light(
       primary: AppColors.primaryColor,
-      // secondary: secondaryColor,
-      // tertiary: tertiaryColor,
-      // background: colorScheme.background,
-      // ).copyWith(error: labelColor),
     ),
   );
 }

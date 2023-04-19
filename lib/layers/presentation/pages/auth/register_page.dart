@@ -1,3 +1,4 @@
+import 'package:adopt_me/core/validators/input_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,14 +28,14 @@ class _RegisterPageState extends State<RegisterPage> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _aboutController = TextEditingController();
+  final TextEditingController _aboutMeController = TextEditingController();
 
   @override
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
-    _aboutController.dispose();
+    _aboutMeController.dispose();
     super.dispose();
   }
 
@@ -69,6 +70,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 bottom: AppSizes.size15,
                               ),
                               controller: _nameController,
+                              validator: nameValidator,
                             ),
                             CustomTextField(
                               labelText: "E-mail",
@@ -78,6 +80,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 bottom: AppSizes.size15,
                               ),
                               controller: _emailController,
+                              validator: emailValidator,
                             ),
                             CustomTextField(
                               labelText: "Senha",
@@ -88,6 +91,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                 bottom: AppSizes.size15,
                               ),
                               controller: _passwordController,
+                              validator: passwordValidator,
                             ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -100,7 +104,8 @@ class _RegisterPageState extends State<RegisterPage> {
                                     top: AppSizes.size20,
                                     bottom: AppSizes.size05,
                                   ),
-                                  controller: _aboutController,
+                                  controller: _aboutMeController,
+                                  validator: aboutMeValidator,
                                 ),
                                 Text(
                                   '* Isso ajudará os outros usuários a conhecê-lo melhor e a conectar-se com pessoas que tenham interesses em comum.',
@@ -130,7 +135,7 @@ class _RegisterPageState extends State<RegisterPage> {
                           _nameController.text,
                           _emailController.text,
                           _passwordController.text,
-                          _aboutController.text,
+                          _aboutMeController.text,
                         );
                       }
                     },

@@ -34,7 +34,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthSuccess());
     } catch (_) {
       log(formatException(_.toString()));
-      emit(AuthFailure(message: formatException(_.toString())));
+      emit(AuthFailure(formatException(_.toString())));
     }
   }
 
@@ -50,7 +50,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthSuccess());
     } catch (_) {
       log(formatException(_.toString()));
-      emit(AuthFailure(message: formatException(_.toString())));
+      emit(AuthFailure(formatException(_.toString())));
     }
   }
 
@@ -83,7 +83,7 @@ class AuthCubit extends Cubit<AuthState> {
       emit(AuthSuccess());
     } catch (_) {
       log(formatException(_.toString()));
-      emit(AuthFailure(message: formatException(_.toString())));
+      emit(AuthFailure(formatException(_.toString())));
     }
   }
 }

@@ -22,7 +22,7 @@ class AuthSuccess extends AuthState {
 class AuthFailure extends AuthState {
   final String message;
 
-  const AuthFailure({required this.message});
+  const AuthFailure(this.message);
 
   @override
   List<Object?> get props => [message];

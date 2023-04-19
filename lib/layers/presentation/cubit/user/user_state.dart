@@ -1,3 +1,4 @@
+import 'package:adopt_me/layers/domain/entities/user/user_entity.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class UserState extends Equatable {
@@ -12,6 +13,15 @@ class UserInitial extends UserState {
 class UserLoading extends UserState {
   @override
   List<Object?> get props => [];
+}
+
+class UserLoaded extends UserState {
+  final UserEntity user;
+
+  const UserLoaded({required this.user});
+
+  @override
+  List<Object?> get props => [user];
 }
 
 class UserSuccess extends UserState {

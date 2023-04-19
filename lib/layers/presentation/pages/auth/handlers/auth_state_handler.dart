@@ -37,7 +37,7 @@ class AuthStateHandler {
           _loadingOverlayEntry = null;
           _overlayState = null;
         }
-        Get.offAndToNamed(AppRoutes.editProfileRoute);
+        Get.offAndToNamed(AppRoutes.settingsRoute);
         break;
       case AuthFailure:
         if (_loadingOverlayEntry != null) {

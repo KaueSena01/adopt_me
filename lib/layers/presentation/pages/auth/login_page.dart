@@ -1,3 +1,4 @@
+import 'package:adopt_me/core/validators/input_validator.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,6 +68,7 @@ class _LogInPageState extends State<LogInPage> {
                             bottom: AppSizes.size15,
                           ),
                           controller: _emailController,
+                          validator: emailValidator,
                         ),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -80,6 +82,7 @@ class _LogInPageState extends State<LogInPage> {
                                 bottom: AppSizes.size05,
                               ),
                               controller: _passwordController,
+                              validator: passwordValidator,
                             ),
                             Text(
                               'Esqueceu a senha',

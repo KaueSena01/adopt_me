@@ -29,6 +29,7 @@ abstract class FontSize {
   static double fontSize12 = 12.0;
   static double fontSize14 = 14.0;
   static double fontSize16 = 16.0;
+  static double fontSize20 = 20.0;
   static double fontSize22 = 22.0;
   static double fontSize24 = 24.0;
   static double fontSize28 = 28.0;
