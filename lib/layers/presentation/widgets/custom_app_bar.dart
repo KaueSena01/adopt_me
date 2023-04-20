@@ -8,18 +8,21 @@ class CustomAppBar extends StatelessWidget {
     super.key,
     required this.title,
     required this.onPressed,
+    this.padding,
   });
 
   final String title;
   final void Function() onPressed;
+  final EdgeInsets? padding;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        vertical: AppSizes.size60,
-        horizontal: AppSizes.size05,
-      ),
+      padding: padding ??
+          EdgeInsets.symmetric(
+            vertical: AppSizes.size60,
+            horizontal: AppSizes.size05,
+          ),
       child: Row(
         children: [
           IconButton(
