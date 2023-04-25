@@ -62,12 +62,7 @@ class AuthCubit extends Cubit<AuthState> {
   ) async {
     emit(AuthLoading());
     try {
-      await _registerUseCase.call(
-        AuthEntity(
-          email: email,
-          password: password,
-        ),
-      );
+      await _registerUseCase.call(AuthEntity(email: email, password: password));
 
       final uid = await _getCurrentUIDUseCase.call();
 

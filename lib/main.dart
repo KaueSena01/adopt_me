@@ -2,6 +2,7 @@ import 'package:adopt_me/core/configs/inject.dart' as inject;
 import 'package:adopt_me/core/constants/router/app_pages.dart';
 import 'package:adopt_me/core/constants/router/app_routes.dart';
 import 'package:adopt_me/layers/presentation/cubit/auth/auth_cubit.dart';
+import 'package:adopt_me/layers/presentation/cubit/user/user_cubit.dart';
 import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,6 +33,9 @@ class AdoptMe extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<UserCubit>(
+          create: (_) => inject.getIt<UserCubit>()..getCurrentUser(),
+        ),
         BlocProvider<AuthCubit>(
           create: (_) => inject.getIt<AuthCubit>(),
         ),

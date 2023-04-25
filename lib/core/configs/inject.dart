@@ -5,6 +5,7 @@ import 'package:adopt_me/layers/data/repositories/user/user_repository_impl.dart
 import 'package:adopt_me/layers/domain/repositories/user/user_repository.dart';
 import 'package:adopt_me/layers/domain/use_cases/auth/get_current_uid_usecase.dart';
 import 'package:adopt_me/layers/domain/use_cases/user/create_user_usecase.dart';
+import 'package:adopt_me/layers/domain/use_cases/user/get_current_user_usecase.dart';
 import 'package:adopt_me/layers/presentation/cubit/auth/auth_cubit.dart';
 import 'package:adopt_me/layers/presentation/cubit/user/user_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,14 +34,14 @@ Future<void> init() async {
   // Cubit
   getIt.registerFactory<AuthCubit>(
       () => AuthCubit(getIt(), getIt(), getIt(), getIt()));
-  getIt.registerFactory<UserCubit>(() => UserCubit(getIt()));
+  getIt.registerFactory<UserCubit>(() => UserCubit(getIt(), getIt()));
 
   // DataSources
   getIt.registerLazySingleton<AuthDataSource>(
     () => AuthDataSourceImpl(getIt(), getIt(), getIt()),
   );
   getIt.registerLazySingleton<UserDataSource>(
-    () => UserDataSourceImpl(getIt()),
+    () => UserDataSourceImpl(getIt(), getIt()),
   );
 
   // Repositories
@@ -68,5 +69,8 @@ Future<void> init() async {
   // User
   getIt.registerLazySingleton<CreateUserUseCase>(
     () => CreateUserUseCase(userRepository: getIt()),
+  );
+  getIt.registerLazySingleton<GetCurrentUserUseCase>(
+    () => GetCurrentUserUseCase(userRepository: getIt()),
   );
 }

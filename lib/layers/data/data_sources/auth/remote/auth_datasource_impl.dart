@@ -1,4 +1,5 @@
 import 'package:adopt_me/layers/data/data_sources/auth/auth_datasource.dart';
+import 'package:adopt_me/layers/data/dtos/user/user_dto.dart';
 import 'package:adopt_me/layers/domain/entities/auth/auth_entity.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -19,16 +20,28 @@ class AuthDataSourceImpl implements AuthDataSource {
   Future<AuthEntity> googleSignIn() async {
     try {
       final googleUser = await googleSignin.signIn();
-
       final googleAuth = await googleUser?.authentication;
-
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
         idToken: googleAuth?.idToken,
       );
-
       final userAuth =
           (await firebaseAuth.signInWithCredential(credential)).user;
+
+      final userCollection = fireStore.collection("users");
+      final uid = await getCurrentUId();
+      userCollection.doc(uid).get().then((userDoc) async {
+        if (!userDoc.exists) {
+          var user = UserDTO(
+            uid: userAuth!.uid,
+            name: userAuth.displayName!,
+            email: userAuth.email!,
+            profileUrl: userAuth.photoURL == null ? "" : userAuth.photoURL!,
+          ).toDocument();
+
+          userCollection.doc(uid).set(user);
+        }
+      }).catchError((error) {});
 
       return AuthEntity(
         uid: userAuth!.uid,

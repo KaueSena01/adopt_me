@@ -27,4 +27,15 @@ class UserDTO extends UserEntity {
       "uid": uid,
     };
   }
+
+  factory UserDTO.fromMap(Map<String, dynamic> map) {
+    return UserDTO(
+      uid: map['uid'] ?? '',
+      name: map['name'] ?? '',
+      email: map['email'] ?? '',
+      aboutMe: map['aboutMe'] ?? '',
+      location: map['location'] ?? '',
+      profileUrl: map['profileUrl'] ?? '',
+    );
+  }
 }
