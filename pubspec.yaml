@@ -47,6 +47,8 @@ dependencies:
   equatable: ^2.0.5
   asuka: ^2.0.2
   lottie: ^1.1.0
+  image_picker: ^0.8.6
+  camera_camera: ^2.0.2
 
 dev_dependencies:
   flutter_test:

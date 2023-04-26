@@ -13,6 +13,7 @@ class CustomElevatedButton extends StatelessWidget {
     this.width,
     this.height,
     this.margin,
+    this.isEnabled = true,
   });
 
   final String label;
@@ -21,6 +22,7 @@ class CustomElevatedButton extends StatelessWidget {
   final double? width;
   final double? height;
   final EdgeInsets? margin;
+  final bool isEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class CustomElevatedButton extends StatelessWidget {
       height: height ?? AppSizes.size55,
       margin: margin,
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: isEnabled ? onPressed : null,
         child: Text(
           label,
           style: textStyle ??
