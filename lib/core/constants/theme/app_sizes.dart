@@ -14,6 +14,7 @@ abstract class AppSizes {
   static double size80 = 80.0;
   static double size90 = 90.0;
   static double size100 = 100.0;
+  static double size120 = 120.0;
 }
 
 abstract class BorderSize {

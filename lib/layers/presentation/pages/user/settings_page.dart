@@ -9,14 +9,9 @@ import 'package:adopt_me/layers/presentation/widgets/custom_connection_state_don
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class SettingsPage extends StatefulWidget {
+class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
 
-  @override
-  State<SettingsPage> createState() => _SettingsPageState();
-}
-
-class _SettingsPageState extends State<SettingsPage> {
   final blocProvider = BlocProvider.of<UserCubit>;
 
   @override

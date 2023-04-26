@@ -3,6 +3,7 @@ import 'package:adopt_me/core/constants/theme/app_sizes.dart';
 import 'package:adopt_me/core/constants/theme/app_text_styles.dart';
 import 'package:adopt_me/layers/domain/entities/user/user_entity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CardUser extends StatelessWidget {
   const CardUser({super.key, required this.user});
@@ -37,16 +38,20 @@ class CardUser extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(AppSizes.size100),
-              child: Image.network(
-                "https://avatars.githubusercontent.com/u/86299739?s=400&u=79241537628ffd14ff1f80a584669a9b491e7bc1&v=4",
-                fit: BoxFit.fill,
-                height: AppSizes.size40,
-                width: AppSizes.size40,
-              ),
-              // SvgPicture.asset(
-              //   "assets/icons/person.svg",
-              //   color: AppColors.whiteColor,
-              // ),
+              child: user.profileUrl != ""
+                  ? Image.network(
+                      user.profileUrl,
+                      fit: BoxFit.fill,
+                      height: AppSizes.size40,
+                      width: AppSizes.size40,
+                    )
+                  : Padding(
+                      padding: EdgeInsets.all(AppSizes.size05),
+                      child: SvgPicture.asset(
+                        "assets/icons/person.svg",
+                        color: AppColors.primaryColor,
+                      ),
+                    ),
             ),
           ),
           Expanded(
