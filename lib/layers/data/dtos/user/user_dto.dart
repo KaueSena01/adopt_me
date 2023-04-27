@@ -1,7 +1,7 @@
 import 'package:adopt_me/layers/domain/entities/user/user_entity.dart';
 
 class UserDTO extends UserEntity {
-  UserDTO({
+  const UserDTO({
     String uid = "",
     String name = "",
     String email = "",
