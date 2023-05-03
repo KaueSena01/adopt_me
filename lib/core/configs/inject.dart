@@ -6,9 +6,12 @@ import 'package:adopt_me/layers/domain/repositories/user/user_repository.dart';
 import 'package:adopt_me/layers/domain/use_cases/auth/get_current_uid_usecase.dart';
 import 'package:adopt_me/layers/domain/use_cases/user/create_user_usecase.dart';
 import 'package:adopt_me/layers/domain/use_cases/user/get_current_user_usecase.dart';
+import 'package:adopt_me/layers/domain/use_cases/user/update_profile_pic_usecase.dart';
+import 'package:adopt_me/layers/domain/use_cases/user/update_user_usecase.dart';
 import 'package:adopt_me/layers/presentation/cubit/auth/auth_cubit.dart';
 import 'package:adopt_me/layers/presentation/cubit/user/user_cubit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -24,24 +27,27 @@ GetIt getIt = GetIt.instance;
 
 Future<void> init() async {
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  FirebaseStorage firebaseStorage = FirebaseStorage.instance;
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
   GoogleSignIn googleSignIn = GoogleSignIn();
 
   getIt.registerLazySingleton(() => fireStore);
+  getIt.registerLazySingleton(() => firebaseStorage);
   getIt.registerLazySingleton(() => firebaseAuth);
   getIt.registerLazySingleton(() => googleSignIn);
 
   // Cubit
   getIt.registerFactory<AuthCubit>(
       () => AuthCubit(getIt(), getIt(), getIt(), getIt()));
-  getIt.registerFactory<UserCubit>(() => UserCubit(getIt(), getIt()));
+  getIt.registerFactory<UserCubit>(
+      () => UserCubit(getIt(), getIt(), getIt(), getIt()));
 
   // DataSources
   getIt.registerLazySingleton<AuthDataSource>(
     () => AuthDataSourceImpl(getIt(), getIt(), getIt()),
   );
   getIt.registerLazySingleton<UserDataSource>(
-    () => UserDataSourceImpl(getIt(), getIt()),
+    () => UserDataSourceImpl(getIt(), getIt(), getIt()),
   );
 
   // Repositories
@@ -72,5 +78,11 @@ Future<void> init() async {
   );
   getIt.registerLazySingleton<GetCurrentUserUseCase>(
     () => GetCurrentUserUseCase(userRepository: getIt()),
+  );
+  getIt.registerLazySingleton<UpdateProfilePicUseCase>(
+    () => UpdateProfilePicUseCase(userRepository: getIt()),
+  );
+  getIt.registerLazySingleton<UpdateUserUseCase>(
+    () => UpdateUserUseCase(userRepository: getIt()),
   );
 }

@@ -5,8 +5,8 @@ import 'package:adopt_me/layers/domain/entities/user/user_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CardUser extends StatelessWidget {
-  const CardUser({super.key, required this.user});
+class UserCard extends StatelessWidget {
+  const UserCard({super.key, required this.user});
 
   final UserEntity user;
 

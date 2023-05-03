@@ -3,7 +3,7 @@ import 'package:adopt_me/core/constants/theme/app_sizes.dart';
 import 'package:adopt_me/layers/domain/entities/user/user_entity.dart';
 import 'package:adopt_me/layers/presentation/cubit/user/user_cubit.dart';
 import 'package:adopt_me/layers/presentation/pages/user/widgets/app_options.dart';
-import 'package:adopt_me/layers/presentation/pages/user/widgets/card_user.dart';
+import 'package:adopt_me/layers/presentation/pages/user/widgets/user_card.dart';
 import 'package:adopt_me/layers/presentation/widgets/custom_app_bar.dart';
 import 'package:adopt_me/layers/presentation/widgets/custom_connection_state_done_widget.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +43,7 @@ class SettingsPage extends StatelessWidget {
                           EdgeInsets.symmetric(horizontal: AppSizes.size15),
                       child: Column(
                         children: [
-                          CardUser(user: user),
+                          UserCard(user: user),
                           const AppOptions(),
                         ],
                       ),

@@ -8,10 +8,12 @@ class CustomAppBar extends StatelessWidget {
     super.key,
     required this.title,
     required this.onPressed,
+    this.color,
     this.padding,
   });
 
   final String title;
+  final Color? color;
   final void Function() onPressed;
   final EdgeInsets? padding;
 
@@ -29,14 +31,14 @@ class CustomAppBar extends StatelessWidget {
             onPressed: onPressed,
             icon: Icon(
               Icons.arrow_back_ios,
-              color: AppColors.darkColor,
+              color: color ?? AppColors.darkColor,
               size: AppSizes.size20,
             ),
           ),
           Text(
             title,
             style: AppTextStyles.textTheme.bodyMedium!.apply(
-              color: AppColors.darkColor,
+              color: color ?? AppColors.darkColor,
             ),
           ),
         ],

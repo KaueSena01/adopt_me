@@ -17,7 +17,7 @@ abstract class AppPages {
     ),
     GetPage(
       name: AppRoutes.editProfileRoute,
-      page: () => EditProfilePage(),
+      page: () => const EditProfilePage(),
     ),
     GetPage(
       name: AppRoutes.settingsRoute,
