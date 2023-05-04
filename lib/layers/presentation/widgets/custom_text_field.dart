@@ -11,8 +11,10 @@ class CustomTextField extends StatefulWidget {
   final Color? hintTextColor;
   final Color? inputTextColor;
   final IconData? icon;
+  final int maxLines;
   final bool isSecret;
   final bool readOnly;
+  final bool darkBorder;
   final List<TextInputFormatter>? inputFormatters;
   final String? initialValue;
   final String? Function(String?)? validator;
@@ -31,8 +33,10 @@ class CustomTextField extends StatefulWidget {
     this.inputTextColor,
     this.initialValue,
     this.icon,
+    this.maxLines = 1,
     this.isSecret = false,
     this.readOnly = false,
+    this.darkBorder = false,
     this.inputFormatters,
     this.textInputType,
     this.controller,
@@ -69,12 +73,27 @@ class _CustomTextFieldState extends State<CustomTextField> {
         validator: widget.validator,
         onSaved: widget.onSaved,
         keyboardType: widget.textInputType,
+        maxLines: widget.maxLines,
         style: AppTextStyles.textTheme.labelSmall!.apply(
           color: widget.inputTextColor ?? AppColors.whiteColor,
         ),
         decoration: InputDecoration(
           floatingLabelBehavior: FloatingLabelBehavior.always,
           labelText: widget.labelText,
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.darkBorder
+                  ? AppColors.silverColor
+                  : AppColors.lightColor,
+            ),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.darkBorder
+                  ? AppColors.silverColor
+                  : AppColors.lightColor,
+            ),
+          ),
           labelStyle: AppTextStyles.textTheme.labelSmall!.apply(
             color: widget.labelTextColor ?? AppColors.lighterColor,
           ),

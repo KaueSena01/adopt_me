@@ -11,17 +11,21 @@ class CustomOutlinedButton extends StatelessWidget {
     required this.label,
     required this.onPressed,
     this.iconPath,
-    this.textStyle,
     this.width,
     this.height,
+    this.iconMargin,
+    this.backgroundColor,
+    this.textStyle,
   });
 
   final String label;
   final String? iconPath;
-  final TextStyle? textStyle;
   final void Function()? onPressed;
   final double? width;
   final double? height;
+  final double? iconMargin;
+  final Color? backgroundColor;
+  final TextStyle? textStyle;
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +33,18 @@ class CustomOutlinedButton extends StatelessWidget {
       width: width ?? MediaQuery.of(context).size.width,
       height: height ?? AppSizes.size55,
       child: OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          backgroundColor: backgroundColor,
+        ),
         onPressed: onPressed,
         child: iconPath != null
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(right: AppSizes.size05),
+                    margin: EdgeInsets.only(
+                      right: iconMargin ?? AppSizes.size10,
+                    ),
                     height: AppSizes.size25,
                     width: AppSizes.size25,
                     child: SvgPicture.asset(

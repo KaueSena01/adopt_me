@@ -8,7 +8,8 @@ class AuthRepositoryImpl implements AuthRepository {
   AuthRepositoryImpl({required this.authDataSource});
 
   @override
-  Future<void> googleSignIn() async => await authDataSource.googleSignIn();
+  Future<AuthEntity> googleSignIn() async =>
+      await authDataSource.googleSignIn();
 
   @override
   Future<void> signIn(AuthEntity authEntity) async =>

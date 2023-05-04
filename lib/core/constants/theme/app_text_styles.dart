@@ -37,17 +37,17 @@ abstract class AppTextStyles {
     ),
     // body
     bodyLarge: TextStyle(
-      fontSize: FontSize.fontSize22,
+      fontSize: FontSize.fontSize20,
       fontWeight: FontWeight.w700,
       fontFamily: 'Inter',
     ),
     bodyMedium: TextStyle(
-      fontSize: FontSize.fontSize22,
+      fontSize: FontSize.fontSize20,
       fontWeight: FontWeight.w500,
       fontFamily: 'Inter',
     ),
     bodySmall: TextStyle(
-      fontSize: FontSize.fontSize22,
+      fontSize: FontSize.fontSize20,
       fontWeight: FontWeight.w400,
       fontFamily: 'Inter',
     ),

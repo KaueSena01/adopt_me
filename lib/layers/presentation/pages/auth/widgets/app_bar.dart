@@ -1,9 +1,9 @@
+import 'package:adopt_me/core/constants/router/app_routes.dart';
 import 'package:adopt_me/core/constants/theme/app_colors.dart';
 import 'package:adopt_me/core/constants/theme/app_sizes.dart';
 import 'package:adopt_me/core/constants/theme/app_text_styles.dart';
-import 'package:adopt_me/layers/presentation/pages/auth/login_page.dart';
+import 'package:adopt_me/core/functions/navigator.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 Widget appBar(BuildContext context) {
   return Container(
@@ -12,7 +12,7 @@ Widget appBar(BuildContext context) {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         IconButton(
-          onPressed: () => Get.to(const LogInPage()),
+          onPressed: () => navigateAndRemove(context, AppRoutes.loginRoute),
           icon: Icon(
             Icons.arrow_back_ios,
             color: AppColors.whiteColor,

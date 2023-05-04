@@ -10,4 +10,19 @@ class UserRepositoryImpl implements UserRepository {
   @override
   Future<void> createUser(UserEntity userEntity) async =>
       await userDataSource.createUser(userEntity);
+
+  @override
+  Future<UserEntity> getCurrentUser() async {
+    return await userDataSource.getCurrentUser();
+  }
+
+  @override
+  Future<void> updateProfilePic(String path) async {
+    await userDataSource.updateProfilePic(path);
+  }
+
+  @override
+  Future<void> updateUser(UserEntity userEntity) async {
+    await userDataSource.updateUser(userEntity);
+  }
 }

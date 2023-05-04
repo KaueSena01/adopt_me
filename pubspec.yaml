@@ -37,12 +37,19 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: ^2.9.0
   firebase_auth: ^4.4.0
+  firebase_storage: ^11.1.1
   google_sign_in: ^6.0.2
   google_fonts: ^4.0.3
   get_it: ^7.2.0
   get: ^4.6.5
   flutter_svg: ^2.0.0
-  cloud_firestore: ^4.5.0
+  cloud_firestore: ^4.5.1
+  flutter_bloc: ^8.1.2
+  equatable: ^2.0.5
+  asuka: ^2.0.2
+  lottie: ^1.1.0
+  image_picker: ^0.8.6
+  camera_camera: ^2.0.2
 
 dev_dependencies:
   flutter_test:
