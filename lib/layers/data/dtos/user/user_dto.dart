@@ -5,6 +5,7 @@ class UserDTO extends UserEntity {
     String uid = "",
     String name = "",
     String email = "",
+    String phone = "",
     String aboutMe = "",
     String location = "",
     String profileUrl = "",
@@ -12,6 +13,7 @@ class UserDTO extends UserEntity {
           uid: uid,
           name: name,
           email: email,
+          phone: phone,
           aboutMe: aboutMe,
           location: location,
           profileUrl: profileUrl,
@@ -19,12 +21,13 @@ class UserDTO extends UserEntity {
 
   Map<String, dynamic> toDocument() {
     return {
+      "uid": uid,
       "name": name,
       "email": email,
+      "phone": phone,
       "aboutMe": aboutMe,
       "location": location,
       "profileUrl": profileUrl,
-      "uid": uid,
     };
   }
 
@@ -33,6 +36,7 @@ class UserDTO extends UserEntity {
       uid: map['uid'] ?? '',
       name: map['name'] ?? '',
       email: map['email'] ?? '',
+      phone: map['phone'] ?? '',
       aboutMe: map['aboutMe'] ?? '',
       location: map['location'] ?? '',
       profileUrl: map['profileUrl'] ?? '',

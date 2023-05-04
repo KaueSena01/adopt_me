@@ -85,6 +85,7 @@ class UserDataSourceImpl implements UserDataSource {
         uid: uid,
         name: userEntity.name,
         email: userEntity.email,
+        phone: userEntity.phone,
         aboutMe: userEntity.aboutMe,
         location: userEntity.location,
         profileUrl: userEntity.profileUrl,

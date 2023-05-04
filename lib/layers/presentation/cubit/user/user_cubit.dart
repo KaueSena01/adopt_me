@@ -49,8 +49,10 @@ class UserCubit extends Cubit<UserState> {
   Future<void> updateUser(
     String name,
     String email,
-    String password,
+    String phone,
     String about,
+    String location,
+    String profileUrl,
   ) async {
     emit(UserLoading());
     try {
@@ -58,7 +60,10 @@ class UserCubit extends Cubit<UserState> {
         UserEntity(
           name: name,
           email: email,
+          phone: phone,
           aboutMe: about,
+          location: location,
+          profileUrl: profileUrl,
         ),
       );
       emit(UserSuccess());
