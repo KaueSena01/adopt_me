@@ -1,5 +1,6 @@
 import 'dart:io';
-import 'package:get/get.dart';
+import 'package:adopt_me/core/constants/router/app_routes.dart';
+import 'package:adopt_me/core/functions/navigator.dart';
 import 'package:camera_camera/camera_camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,6 @@ import 'package:adopt_me/core/constants/theme/app_sizes.dart';
 import 'package:adopt_me/core/constants/theme/app_text_styles.dart';
 import 'package:adopt_me/layers/domain/entities/user/user_entity.dart';
 import 'package:adopt_me/layers/presentation/cubit/user/user_cubit.dart';
-import 'package:adopt_me/layers/presentation/pages/user/preview_page.dart';
 import 'package:adopt_me/layers/presentation/widgets/custom_image_selection_widget.dart';
 import 'package:adopt_me/layers/presentation/widgets/custom_space.dart';
 
@@ -143,13 +143,14 @@ class _UserProfileState extends State<UserProfile> {
     File preview;
 
     takePicture() async {
-      Get.to(
-        () => CameraCamera(
+      navigatePush(
+        context,
+        CameraCamera(
           resolutionPreset: ResolutionPreset.max,
           onFile: (file) async {
-            await Get.to(() => PreviewPage(file: file));
+            navigateTo(context, AppRoutes.previewRoute, arguments: file);
             setState(() => preview = file);
-            Get.back();
+            navigatePop(context);
           },
         ),
       );
@@ -168,8 +169,10 @@ class _UserProfileState extends State<UserProfile> {
       blocProvider(context).updateProfilePic("");
     }
 
-    Get.bottomSheet(
-      Container(
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: AppColors.cardColor.withOpacity(0),
+      builder: (context) => Container(
         height: AppSizes.size210,
         padding: EdgeInsets.fromLTRB(
           AppSizes.size25,

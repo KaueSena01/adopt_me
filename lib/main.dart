@@ -10,7 +10,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:adopt_me/core/constants/theme/app_theme.dart';
 import 'package:adopt_me/firebase_options.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,6 +19,8 @@ void main() async {
   );
 
   await inject.init();
+
+  // Commit de teste
 
   runApp(AdoptMe());
 }
@@ -40,14 +41,14 @@ class AdoptMe extends StatelessWidget {
           create: (_) => inject.getIt<AuthCubit>(),
         ),
       ],
-      child: GetMaterialApp(
+      child: MaterialApp(
         key: _globalKey,
         builder: Asuka.builder,
         theme: AppTheme.themeData,
         themeMode: ThemeMode.system,
         title: 'Adopt Me',
         debugShowCheckedModeBanner: false,
-        getPages: AppPages.appPages,
+        onGenerateRoute: AppPages.onGenerateRoute,
         initialRoute: AppRoutes.loginRoute,
       ),
     );

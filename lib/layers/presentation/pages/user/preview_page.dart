@@ -4,13 +4,13 @@ import 'dart:ui';
 import 'package:adopt_me/core/constants/router/app_routes.dart';
 import 'package:adopt_me/core/constants/theme/app_colors.dart';
 import 'package:adopt_me/core/constants/theme/app_sizes.dart';
+import 'package:adopt_me/core/functions/navigator.dart';
 import 'package:adopt_me/layers/presentation/cubit/user/user_cubit.dart';
 import 'package:adopt_me/layers/presentation/widgets/custom_app_bar.dart';
 import 'package:adopt_me/layers/presentation/widgets/custom_elevated_button.dart';
 import 'package:adopt_me/layers/presentation/widgets/custom_space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 
 class PreviewPage extends StatelessWidget {
   const PreviewPage({
@@ -51,7 +51,7 @@ class PreviewPage extends StatelessWidget {
                   padding: EdgeInsets.all(AppSizes.size10),
                   title: "Foto do perfil",
                   color: AppColors.whiteColor,
-                  onPressed: () => Get.back(),
+                  onPressed: () => navigatePop(context),
                 ),
                 Expanded(
                   child: Center(
@@ -72,7 +72,7 @@ class PreviewPage extends StatelessWidget {
                   label: "Atualizar",
                   onPressed: () {
                     blocProvider(context).updateProfilePic(file.path);
-                    Get.toNamed(AppRoutes.editProfileRoute);
+                    navigateAndRemove(context, AppRoutes.editProfileRoute);
                   },
                 ),
               ],

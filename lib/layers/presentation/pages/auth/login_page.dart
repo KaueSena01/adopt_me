@@ -1,5 +1,5 @@
+import 'package:adopt_me/core/functions/navigator.dart';
 import 'package:adopt_me/core/validators/input_validator.dart';
-import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -101,8 +101,8 @@ class _LogInPageState extends State<LogInPage> {
                                 flex: 1,
                                 child: CustomOutlinedButton(
                                   label: "Criar conta",
-                                  onPressed: () =>
-                                      Get.toNamed(AppRoutes.registerRoute),
+                                  onPressed: () => navigateTo(
+                                      context, AppRoutes.registerRoute),
                                 ),
                               ),
                               CustomSpace(width: AppSizes.size10),

@@ -1,4 +1,4 @@
-import 'package:get/get.dart';
+import 'package:adopt_me/core/functions/navigator.dart';
 import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +37,7 @@ class AuthStateHandler {
           _loadingOverlayEntry = null;
           _overlayState = null;
         }
-        Get.offAndToNamed(AppRoutes.editProfileRoute);
+        navigateAndRemove(context, AppRoutes.editProfileRoute);
         break;
       case AuthFailure:
         if (_loadingOverlayEntry != null) {
